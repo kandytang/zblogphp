@@ -325,9 +325,11 @@ class ZBlogPHP {
      */
     public function __call($method, $args) {
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_Call'] as $fpname => &$fpsignal) {
-            $fpsignal = PLUGIN_EXITSIGNAL_NONE;
             $fpreturn = $fpname($method, $args);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {return $fpreturn;}
+            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+                $fpsignal = PLUGIN_EXITSIGNAL_NONE;
+                return $fpreturn;
+            }
         }
         trigger_error($this->lang['error'][81], E_USER_WARNING);
     }
@@ -340,9 +342,11 @@ class ZBlogPHP {
      */
     public function __set($name, $value) {
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_Set'] as $fpname => &$fpsignal) {
-            $fpsignal = PLUGIN_EXITSIGNAL_NONE;
             $fpreturn = $fpname($name, $value);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {return $fpreturn;}
+            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+                $fpsignal = PLUGIN_EXITSIGNAL_NONE;
+                return $fpreturn;
+            }
         }
         trigger_error($this->lang['error'][81], E_USER_WARNING);
     }
@@ -354,9 +358,11 @@ class ZBlogPHP {
      */
     public function __get($name) {
         foreach ($GLOBALS['hooks']['Filter_Plugin_Zbp_Get'] as $fpname => &$fpsignal) {
-            $fpsignal = PLUGIN_EXITSIGNAL_NONE;
             $fpreturn = $fpname($name);
-            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {return $fpreturn;}
+            if ($fpsignal == PLUGIN_EXITSIGNAL_RETURN) {
+                $fpsignal = PLUGIN_EXITSIGNAL_NONE;
+                return $fpreturn;
+            }
         }
         trigger_error($this->lang['error'][81], E_USER_WARNING);
     }
